@@ -1,6 +1,6 @@
 FROM debian:jessie
 
-ENV BR_VERSION 2015.02
+ENV BR_VERSION 2015.05
 
 RUN apt-get update && apt-get install -y -q \
     bash \
