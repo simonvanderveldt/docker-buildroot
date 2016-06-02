@@ -1,10 +1,10 @@
 # Buildroot Docker images
 
-This repository contains Docker images for [buildroot](http://buildroot.uclibc.org/).
+This repository contains Docker images for [buildroot](http://buildroot.org/).
 
 
 ## How to use
-This buildroot image should be used according to the buildroot [documentation about "Keeping customizations outside of Buildroot"](http://buildroot.uclibc.org/downloads/manual/manual.html#outside-br-custom).
+This buildroot image should be used according to the buildroot [documentation about "Keeping customizations outside of Buildroot"](http://buildroot.org/downloads/manual/manual.html#outside-br-custom).
 
 Create a directory containing your buildroot customizations, for example:
 ```
