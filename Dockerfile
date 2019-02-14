@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y -q \
     ca-certificates \
     cpio \
     debianutils \
+    file \
     g++ \
     gcc \
     gzip \
