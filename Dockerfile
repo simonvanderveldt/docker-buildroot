@@ -25,7 +25,9 @@ RUN apt-get update && apt-get install -y -q \
     sed \
     tar \
     unzip \
-    wget
+    wget \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN sed -i "s/^# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen && update-locale LANG=en_US.UTF-8
 
