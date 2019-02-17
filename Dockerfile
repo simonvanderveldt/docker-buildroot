@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y -q \
     file \
     g++ \
     gcc \
+    git \
     gzip \
     libncurses5-dev \
     locales \
