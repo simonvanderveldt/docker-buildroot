@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y -q \
 RUN sed -i "s/^# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen && update-locale LANG=en_US.UTF-8
 
 # Install buildroot
-ENV BR_VERSION 2015.05
+ENV BR_VERSION 2018.11.2
 
 RUN wget -qO- http://buildroot.org/downloads/buildroot-$BR_VERSION.tar.gz \
  | tar xz && mv buildroot-$BR_VERSION /buildroot
