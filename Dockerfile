@@ -39,3 +39,7 @@ RUN wget -qO- http://buildroot.org/downloads/buildroot-$BR_VERSION.tar.gz \
  | tar xz && mv buildroot-$BR_VERSION /buildroot
 
 WORKDIR /buildroot
+
+# Fix issue with make failing because buildroot wants a hash for downloaded kernel patches
+COPY buildroot-linux-dont-check-hashes-for-user-supplied-patches.patch .
+RUN patch -p1 < buildroot-linux-dont-check-hashes-for-user-supplied-patches.patch
