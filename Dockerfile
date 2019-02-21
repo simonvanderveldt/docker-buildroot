@@ -40,10 +40,6 @@ RUN wget -qO- http://buildroot.org/downloads/buildroot-$BR_VERSION.tar.gz \
 
 WORKDIR /buildroot
 
-# Fix issue with make failing because buildroot wants a hash for downloaded kernel patches
-COPY buildroot-linux-dont-check-hashes-for-user-supplied-patches.patch .
-RUN patch -p1 < buildroot-linux-dont-check-hashes-for-user-supplied-patches.patch
-
-# Build all in-kernel overlays using the kernel's dtbs make target
-COPY linux-build-dtbs-using-kernel-make-target.patch .
-RUN patch -p1 < linux-build-dtbs-using-kernel-make-target.patch
+# Apply patches
+COPY patches ./patches
+RUN for patch in patches/*.patch; do patch -p1 < "$patch"; done
