@@ -26,6 +26,7 @@ Create a directory containing your buildroot customizations, for example:
 |           +-- package2.mk
 |
 +-- Config.in
++-- external.desc
 +-- external.mk
 ```
 
