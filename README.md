@@ -31,7 +31,7 @@ Create a directory containing your buildroot customizations, for example:
 
 To use your configuration with the buildroot image use a volume mount to mount the directory inside the container and set the `BR2_EXTERNAL` environment variable to the directory name inside the container. For example:
 ```
-docker run -ti -e BR2_EXTERNAL=/mycustombuildroot -v `pwd`:/mycustombuildroot simonvanderveldt/buildroot:2015.05
+docker run -ti -e BR2_EXTERNAL=/mycustombuildroot -v `pwd`:/mycustombuildroot simonvanderveldt/buildroot:2018.11.2
 ```
 
 Now you can issue your regular buildroot commands, like `make menuconfig` or `make <boardname>_defconfig`.

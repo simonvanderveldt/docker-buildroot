@@ -1,0 +1,33 @@
+From d9616d25837ee7b9abfce18bda2e9fc26a3abfdb Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Thu, 21 Feb 2019 20:09:52 +0100
+Subject: [PATCH] Add patch to build in-kernel devicetree overlays using the
+ kernel's 'make dtbs' target
+
+---
+ linux/linux.mk | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/linux/linux.mk b/linux/linux.mk
+index 2b5d096e14..27526cdc39 100644
+--- a/linux/linux.mk
++++ b/linux/linux.mk
+@@ -447,6 +447,7 @@ define LINUX_BUILD_CMDS
+ 	@if grep -q "CONFIG_MODULES=y" $(@D)/.config; then \
+ 		$(LINUX_MAKE_ENV) $(MAKE) $(LINUX_MAKE_FLAGS) -C $(@D) modules ; \
+ 	fi
++	$(LINUX_MAKE_ENV) $(MAKE) $(LINUX_MAKE_FLAGS) -C $(@D) dtbs
+ 	$(LINUX_BUILD_DTB)
+ 	$(LINUX_APPEND_DTB)
+ endef
+@@ -484,6 +485,7 @@ endef
+ define LINUX_INSTALL_IMAGES_CMDS
+ 	$(call LINUX_INSTALL_IMAGE,$(BINARIES_DIR))
+ 	$(call LINUX_INSTALL_DTB,$(BINARIES_DIR))
++	$(LINUX_MAKE_ENV) $(MAKE1) $(LINUX_MAKE_FLAGS) INSTALL_DTBS_PATH=$(BINARIES_DIR) -C $(@D) dtbs_install;
+ endef
+ 
+ ifeq ($(BR2_STRIP_strip),y)
+-- 
+2.19.2
+
