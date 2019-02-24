@@ -33,7 +33,7 @@ RUN apt-get update && apt-get install -y -q \
 RUN sed -i "s/^# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen && update-locale LANG=en_US.UTF-8
 
 # Install buildroot
-ENV BR_VERSION 2018.11.2
+ENV BR_VERSION 2018.11.3
 
 RUN wget -qO- http://buildroot.org/downloads/buildroot-$BR_VERSION.tar.gz \
  | tar xz && mv buildroot-$BR_VERSION /buildroot
@@ -42,4 +42,4 @@ WORKDIR /buildroot
 
 # Apply patches
 COPY patches ./patches
-RUN for patch in patches/*.patch; do patch -p1 < "$patch"; done
+RUN for patch in patches/*.patch; do echo "Applying patch '$patch'" && patch -p1 < "$patch"; done
