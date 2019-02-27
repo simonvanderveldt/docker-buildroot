@@ -1,0 +1,55 @@
+From dda7cfc247b2f0c3ead5a0760365c53b690de6b3 Mon Sep 17 00:00:00 2001
+From: Simon van der Veldt <simon.vanderveldt@gmail.com>
+Date: Wed, 27 Feb 2019 20:01:19 +0100
+Subject: [PATCH] package/systemd: Only create systemd-journal-gateway and
+ systemd-journal-remote users when the systemd journal gateway package is
+ enabled
+
+Putting these in one buildroot package since systemd-journal-gateway and
+systemd-journal-remote are both enabled by the same configure options: -Dremote and -Dmicrohttpd
+Note that both options need to be enabled for systemd-journal-gateway and systemd-journal-remote
+to be built.
+See https://github.com/systemd/systemd/blob/v240/meson.build#L2234 for reference
+---
+ package/systemd/systemd.mk | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/package/systemd/systemd.mk b/package/systemd/systemd.mk
+index 15db1969e5..a53b9052cd 100644
+--- a/package/systemd/systemd.mk
++++ b/package/systemd/systemd.mk
+@@ -147,7 +147,9 @@ endif
+ 
+ ifeq ($(BR2_PACKAGE_SYSTEMD_JOURNAL_GATEWAY),y)
+ SYSTEMD_DEPENDENCIES += libmicrohttpd
+-SYSTEMD_CONF_OPTS += -Dmicrohttpd=true
++SYSTEMD_CONF_OPTS += -Dremote=true -Dmicrohttpd=true
++SYSTEMD_JOURNAL_GATEWAY_USER = systemd-journal-gateway -1 systemd-journal-gateway -1 * /var/log/journal - - Journal Gateway
++SYSTEMD_JOURNAL_REMOTE_USER = systemd-journal-remote -1 systemd-journal-remote -1 * /var/log/journal/remote - - Journal Remote
+ ifeq ($(BR2_PACKAGE_LIBQRENCODE),y)
+ SYSTEMD_CONF_OPTS += -Dqrencode=true
+ SYSTEMD_DEPENDENCIES += libqrencode
+@@ -155,7 +157,7 @@ else
+ SYSTEMD_CONF_OPTS += -Dqrencode=false
+ endif
+ else
+-SYSTEMD_CONF_OPTS += -Dmicrohttpd=false -Dqrencode=false
++SYSTEMD_CONF_OPTS += -Dremote=false -Dmicrohttpd=false -Dqrencode=false 
+ endif
+ 
+ ifeq ($(BR2_PACKAGE_LIBSELINUX),y)
+@@ -361,9 +363,9 @@ define SYSTEMD_USERS
+ 	- - render -1 * - - - DRI rendering nodes
+ 	- - kvm -1 * - - - kvm nodes
+ 	systemd-bus-proxy -1 systemd-bus-proxy -1 * - - - Proxy D-Bus messages to/from a bus
+-	systemd-journal-gateway -1 systemd-journal-gateway -1 * /var/log/journal - - Journal Gateway
+-	systemd-journal-remote -1 systemd-journal-remote -1 * /var/log/journal/remote - - Journal Remote
+ 	systemd-journal-upload -1 systemd-journal-upload -1 * - - - Journal Upload
++	$(SYSTEMD_JOURNAL_GATEWAY_USER)
++	$(SYSTEMD_JOURNAL_REMOTE_USER)
+ 	$(SYSTEMD_COREDUMP_USER)
+ 	$(SYSTEMD_NETWORKD_USER)
+ 	$(SYSTEMD_RESOLVED_USER)
+-- 
+2.19.2
+
