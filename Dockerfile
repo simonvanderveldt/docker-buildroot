@@ -15,6 +15,7 @@ RUN apt-get update && apt-get install -y -q \
     g++ \
     gcc \
     git \
+    graphviz \
     gzip \
     libncurses5-dev \
     locales \
@@ -22,6 +23,7 @@ RUN apt-get update && apt-get install -y -q \
     patch \
     perl \
     python \
+    python-matplotlib \
     rsync \
     sed \
     tar \
