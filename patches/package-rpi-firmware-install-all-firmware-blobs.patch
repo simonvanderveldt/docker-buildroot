@@ -1,8 +1,8 @@
-From 1055dcda52e7e32b962a742b509e70328998ca14 Mon Sep 17 00:00:00 2001
+From 218971fa1902c6f1d425d20fdc85d65c384654c9 Mon Sep 17 00:00:00 2001
 From: Simon van der Veldt <simon.vanderveldt@gmail.com>
 Date: Sat, 23 Feb 2019 10:06:12 +0100
-Subject: [PATCH] package/rpi-firmware: Install all .dat and .elf files using
- their original name.
+Subject: [PATCH 2/3] package/rpi-firmware: Install all .dat and .elf files
+ using their original name.
 
 This fixes an issue where running with gpu_mem < 32MB won't boot ceause the .elf file needs to be called start_cd.elf but was called start.elf
 This also enables to user to use different bootloader blobs at runtime by changing config.txt
@@ -56,10 +56,10 @@ index 0ebbe7a4cd..acfdb7253b 100644
  	string
  	default ""      if BR2_PACKAGE_RPI_FIRMWARE_DEFAULT
 diff --git a/package/rpi-firmware/rpi-firmware.mk b/package/rpi-firmware/rpi-firmware.mk
-index 22eaaa2886..c6f0f94221 100644
+index 630bc670ca..e80afcce93 100644
 --- a/package/rpi-firmware/rpi-firmware.mk
 +++ b/package/rpi-firmware/rpi-firmware.mk
-@@ -38,8 +38,8 @@ endif # INSTALL_VCDBG
+@@ -43,8 +43,8 @@ endif # INSTALL_VCDBG
  
  define RPI_FIRMWARE_INSTALL_IMAGES_CMDS
  	$(INSTALL) -D -m 0644 $(@D)/boot/bootcode.bin $(BINARIES_DIR)/rpi-firmware/bootcode.bin
