@@ -1,7 +1,7 @@
-From dda7cfc247b2f0c3ead5a0760365c53b690de6b3 Mon Sep 17 00:00:00 2001
+From c1de4f31e2a3e8cdf8e338d1e6d3236657cb378e Mon Sep 17 00:00:00 2001
 From: Simon van der Veldt <simon.vanderveldt@gmail.com>
 Date: Wed, 27 Feb 2019 20:01:19 +0100
-Subject: [PATCH] package/systemd: Only create systemd-journal-gateway and
+Subject: [PATCH 3/3] package/systemd: Only create systemd-journal-gateway and
  systemd-journal-remote users when the systemd journal gateway package is
  enabled
 
@@ -15,10 +15,10 @@ See https://github.com/systemd/systemd/blob/v240/meson.build#L2234 for reference
  1 file changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/package/systemd/systemd.mk b/package/systemd/systemd.mk
-index 15db1969e5..a53b9052cd 100644
+index 6f0e451b5b..b7e656b906 100644
 --- a/package/systemd/systemd.mk
 +++ b/package/systemd/systemd.mk
-@@ -147,7 +147,9 @@ endif
+@@ -168,7 +168,9 @@ endif
  
  ifeq ($(BR2_PACKAGE_SYSTEMD_JOURNAL_GATEWAY),y)
  SYSTEMD_DEPENDENCIES += libmicrohttpd
@@ -29,7 +29,7 @@ index 15db1969e5..a53b9052cd 100644
  ifeq ($(BR2_PACKAGE_LIBQRENCODE),y)
  SYSTEMD_CONF_OPTS += -Dqrencode=true
  SYSTEMD_DEPENDENCIES += libqrencode
-@@ -155,7 +157,7 @@ else
+@@ -176,7 +178,7 @@ else
  SYSTEMD_CONF_OPTS += -Dqrencode=false
  endif
  else
@@ -38,7 +38,7 @@ index 15db1969e5..a53b9052cd 100644
  endif
  
  ifeq ($(BR2_PACKAGE_LIBSELINUX),y)
-@@ -361,9 +363,9 @@ define SYSTEMD_USERS
+@@ -382,9 +384,9 @@ define SYSTEMD_USERS
  	- - render -1 * - - - DRI rendering nodes
  	- - kvm -1 * - - - kvm nodes
  	systemd-bus-proxy -1 systemd-bus-proxy -1 * - - - Proxy D-Bus messages to/from a bus
