@@ -44,4 +44,4 @@ WORKDIR /buildroot
 
 # Apply patches
 COPY patches ./patches
-RUN for patch in patches/*.patch; do echo "Applying patch '$patch'" && patch -p1 < "$patch"; done
+RUN for patch in patches/*.patch; do echo "Applying patch '$patch'" && patch -p1 < "$patch" || exit 1; done
