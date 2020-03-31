@@ -38,3 +38,10 @@ docker run -ti -e BR2_EXTERNAL=/mycustombuildroot -v `pwd`:/mycustombuildroot si
 ```
 
 Now you can issue your regular buildroot commands, like `make menuconfig` or `make <boardname>_defconfig` followed by `make`.
+
+## Development
+### Building the image
+Either simply issue `docker build -t <name> .` or alternatively use the included Docker Compose file using `docker-compose build buildroot`.
+
+### Testing
+To validate that the image works correctly a simple test that builds a Raspberry Pi3 image using the default external toolchain can be run using the included Docker Compose file `docker-compose run --rm buildroot`.
