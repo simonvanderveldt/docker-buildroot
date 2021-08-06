@@ -41,7 +41,3 @@ RUN wget -qO- http://buildroot.org/downloads/buildroot-$BR_VERSION.tar.gz \
  | tar xz && mv buildroot-$BR_VERSION /buildroot
 
 WORKDIR /buildroot
-
-# Apply patches
-COPY patches ./patches
-RUN for patch in patches/*.patch; do echo "Applying patch '$patch'" && patch -p1 < "$patch" || exit 1; done

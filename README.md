@@ -1,10 +1,6 @@
 # Buildroot Docker images
 This repository contains Docker images for [buildroot](http://buildroot.org/).
 
-Note that some patches are applied to the buildroot sources.
-For more details about these patches check the `./patches` directory.
-
-
 ## How to use
 This buildroot image should be used according to the buildroot [documentation about "Keeping customizations outside of Buildroot"](http://buildroot.org/downloads/manual/manual.html#outside-br-custom).
 
