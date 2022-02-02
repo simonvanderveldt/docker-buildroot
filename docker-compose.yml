@@ -1,0 +1,7 @@
+version: "2.4"
+services:
+  buildroot:
+    build: .
+    volumes:
+      - ./.github/workflows/raspberrypi3_test_defconfig:/buildroot/configs/raspberrypi3_test_defconfig
+    command: sh -c "make raspberrypi3_test_defconfig && make"
